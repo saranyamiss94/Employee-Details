@@ -1,0 +1,47 @@
+
+<form [formGroup]="studentForm">
+  <div class="form-group" [ngClass]="isEdit ? 'hide' : ''">
+      <input 
+          type="text" 
+          class="form-control w-100" 
+          formControlName="id" 
+          name="id" 
+          placeholder="Student ID"
+          [readOnly]="isEdit">
+  </div>
+  <div class="form-group" [ngClass]="isEdit ? 'hide' : ''">
+      <input 
+          type="text" 
+          class="form-control w-100" 
+          formControlName="firstName" 
+          name="firstName" 
+          placeholder="FirstName">
+  </div>
+  <div class="form-group" [ngClass]="isEdit ? 'hide' : ''">
+      <input 
+          type="text" 
+          class="form-control w-100" 
+          formControlName="lastName" 
+          name="lastName" 
+          placeholder="lastName">
+  </div> 
+  <div class="form-group" *ngIf="editedUser">
+      <input 
+          type="text" 
+          class="form-control w-100" 
+          formControlName="firstName" 
+          name="firstName" [(ngModel)]="editedUser.firstName"
+          placeholder="FirstName">
+  </div>
+  <div class="form-group" *ngIf="editedUser">
+      <input 
+          type="text" 
+          class="form-control w-100" 
+          formControlName="lastName" 
+          name="lastName" [(ngModel)]="editedUser.lastName"
+          placeholder="lastName">
+  </div>             
+</form>
+  <button [ngClass]="isEdit ? '' : 'hide'" (click)="updateUser(student)" [routerLink]="['/']">Update</button>
+  <button [ngClass]="!isEdit ? '' : 'hide'" (click)="add()" [routerLink]="['/']">Add</button>
+<button (click)="resetForm()">Reset</button>

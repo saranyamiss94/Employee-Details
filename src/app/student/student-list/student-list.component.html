@@ -1,0 +1,32 @@
+<div class="container">
+	<div class="row">
+	    <div class="col-md-12 mt-4">
+	      <h1 class="text-center">User List</h1>
+	      <table class="table table-bordered table-striped table-hover">
+	        <thead>
+	          <tr>
+	            <th class="text-center">ID</th>
+	            <th class="text-center">First Name</th>
+	            <th class="text-center">Last Name</th>
+	            <th class="text-center">&nbsp;</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          <tr *ngFor="let student of studentList">
+	            <td class="text-center">{{ student.id }}</td>
+	            <td class="text-center">{{ student.firstName }}</td>
+	            <td class="text-center">{{ student.lastName }}</td>
+	            <td>
+              		<button type="button" class="btn btn-info btn-sm mr-2" (click)="showEditUserForm(student)" >Edit</button>
+
+	              	<button type="button" class="btn btn-danger btn-sm" (click)="removeUser(student)">Delete</button>
+	            </td>
+	
+	          </tr>
+	        </tbody>
+	      </table>
+	      <div class="text-center">
+			<button class="btn btn-success" [routerLink]="['student-add']">Add New User</button>
+		</div>
+	</div>
+</div>
