@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-
 import { StudentService } from './student/student.service';
 
 import { AppComponent } from './app.component';
@@ -13,9 +11,13 @@ import { StudentListComponent } from './student/student-list/student-list.compon
 
 const appRoutes: Routes = [
   { path: 'student-add', component: StudentAddComponent },
+  { path: 'student-edit/:id', component: StudentAddComponent },
   {
     path: '',
-    component: StudentListComponent
+    redirectTo: 'students', pathMatch: 'full'
+  },
+  {
+    path: 'students', component: StudentListComponent
   },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -25,8 +27,6 @@ const appRoutes: Routes = [
   imports:      [ 
     BrowserModule, 
     ReactiveFormsModule,
-    HttpClientModule,
-    FormsModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only

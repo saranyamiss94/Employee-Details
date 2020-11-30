@@ -6,12 +6,11 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'student-list',
   templateUrl: './student-list.component.html',
-  styles: [ ]
+  styleUrls: [ './student-list.component.css' ]
 })
 export class StudentListComponent implements OnInit  {
 
   studentList: Student[];
-  editUserForm: boolean;
   editedUser: any = {};
   
   constructor(private studentService: StudentService, private router: Router){}
@@ -25,7 +24,10 @@ export class StudentListComponent implements OnInit  {
 
   	showEditUserForm(student: Student) {
 	    this.editedUser = student;
-	    this.editUserForm = true;
-	    this.router.navigate(['/student-add', this.editedUser])
+      this.router.navigate(['/student-edit/', student.id]);
 	  }
+
+    addUser() {
+      this.router.navigate(['/student-add']);
+    }
 }

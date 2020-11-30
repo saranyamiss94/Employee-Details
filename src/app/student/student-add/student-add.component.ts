@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { StudentService } from './../student.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from '../student-interface';
@@ -14,38 +14,34 @@ export class StudentAddComponent implements OnInit  {
   student: Student;
   studentList: Student[];
   studentForm: FormGroup;
-  isEdit: Boolean = false;
-  editUserForm: boolean;
   editedUser: any = {};
-  msg:String = '';
+  submitted = false;
   
   constructor(
     private studentService: StudentService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ){}
   
   ngOnInit(){
-    this.editedUser = this.student;
     this.studentList = this.studentService.getStudents();
-    this.studentForm = new FormGroup({
-      id: new FormControl(''),
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
+    this.studentForm = this.formBuilder.group({
+      id: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required]
+    });
+    this.route.params.subscribe(param => {
+      if(param && param.id){
+        let student = this.studentService.getStudent(param.id);
+        if(student){
+          this.student = student;
+          this.studentForm.setValue(student);
+          }
+        else this.router.navigate(['/'])
+      }
     })
-      this.route.params.subscribe(param => {
-        console.log(param)
-        if(param && param.id){
-          let student = this.studentService.getStudent(param.id);
-          if(student){
-            this.student = this.studentService.getStudent(param.id);
-            this.studentForm.setValue(student);
-            this.isEdit = true;
-            }
-          else this.router.navigate(['/'])
-        }
-      })
-      this.editedUser = this.student;
+    this.editedUser = this.student;
   }
 
   resetForm(){
@@ -55,17 +51,16 @@ export class StudentAddComponent implements OnInit  {
   updateUser(student: Student) {
       const index = this.studentList.findIndex(u => student.id === u.id);
       this.studentList[index] = student;
-      this.editUserForm = false;
     }
 
   add(){
-    if(this.studentForm.valid){
-      this.studentService.studentList.push(this.studentForm.value);
-      this.resetForm();
-      }
-      else {
-      this.msg = 'Please complete form'
+    this.submitted = true;
+    if (this.studentForm.invalid) {
+        return;
     }
+    this.studentService.studentList.push(this.studentForm.value);
+    this.resetForm();
+    this.router.navigate(['/']);
   }
 
 }
