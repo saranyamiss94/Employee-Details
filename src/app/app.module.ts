@@ -3,25 +3,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { StudentService } from './student/student.service';
-
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found.component';
-import { StudentAddComponent } from './student/student-add/student-add.component';
-import { StudentListComponent } from './student/student-list/student-list.component';
+import { StudentFormComponent } from './student/student-form/student-form.component';
+import { StudentDetailsComponent } from './student/student-details/student-details.component';
 
 const appRoutes: Routes = [
-  { path: 'student-add', component: StudentAddComponent },
-  { path: 'student-edit/:id', component: StudentAddComponent },
+  { path: 'student-add', component: StudentFormComponent },
+  { path: 'student-edit/:id', component: StudentFormComponent },
   {
     path: '',
     redirectTo: 'students', pathMatch: 'full'
   },
   {
-    path: 'students', component: StudentListComponent
+    path: 'students', component: StudentDetailsComponent
   },
   { path: '**', component: PageNotFoundComponent }
 ];
-
 
 @NgModule({
   imports:      [ 
@@ -32,8 +30,14 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  declarations: [ AppComponent, StudentAddComponent,StudentListComponent,PageNotFoundComponent ],
+  declarations: [ 
+    AppComponent, 
+    StudentFormComponent,
+    StudentDetailsComponent,
+    PageNotFoundComponent 
+  ],
   providers: [StudentService],
-  bootstrap:    [ AppComponent ]
+  bootstrap: [ AppComponent ]
 })
+
 export class AppModule { }

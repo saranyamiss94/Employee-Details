@@ -4,16 +4,18 @@ import { Student } from '../student-interface';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'student-list',
-  templateUrl: './student-list.component.html',
-  styleUrls: [ './student-list.component.css' ]
+  selector: 'student-details',
+  templateUrl: './student-details.component.html',
+  styleUrls: [ './student-details.component.css' ]
 })
-export class StudentListComponent implements OnInit  {
+
+export class StudentDetailsComponent implements OnInit  {
 
   studentList: Student[];
   editedUser: any = {};
-  
+
   constructor(private studentService: StudentService, private router: Router){}
+
     ngOnInit(){
       this.studentList = this.studentService.getStudents();
     }

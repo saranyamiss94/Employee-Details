@@ -1,0 +1,26 @@
+<h1 class="text-center">User List</h1>
+<table>
+	<thead>
+		<tr>
+			<th class="text-center">ID</th>
+			<th class="text-center">First Name</th>
+			<th class="text-center">Last Name</th>
+			<th class="text-center">&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let student of studentList">
+			<td class="text-center">{{ student.id }}</td>
+			<td class="text-center">{{ student.firstName }}</td>
+			<td class="text-center">{{ student.lastName }}</td>
+			<td>
+				<button (click)="showEditUserForm(student)" >Edit</button>
+
+			  	<button (click)="removeUser(student)">Delete</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<div class="text-center">
+	<button (click)="addUser()">Add New User</button>
+</div>
